@@ -26,6 +26,17 @@ async function getUserInfo(username, password) {
   return res
 }
 
+async function createUser({ username, password, gender, nickname }) {
+  const rst = await User.create({
+    username,
+    password,
+    nickname: nickname ? nickname : username,
+    gender
+  })
+  return rst.dataValues
+}
+
 module.exports = {
-  getUserInfo
+  getUserInfo,
+  createUser
 }
