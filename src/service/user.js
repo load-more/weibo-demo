@@ -5,6 +5,7 @@
 
 const User = require('../db/model/user')
 const { formatUserInfo } = require('./_format')
+const encrypt = require('../utils/crypto')
 
 /**
  * @param {string} username 用户名
@@ -29,7 +30,7 @@ async function getUserInfo(username, password) {
 async function createUser({ username, password, gender, nickname }) {
   const rst = await User.create({
     username,
-    password,
+    password: encrypt(password),
     nickname: nickname ? nickname : username,
     gender
   })
