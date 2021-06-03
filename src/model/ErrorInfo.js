@@ -11,4 +11,8 @@ module.exports = {
     errno: 10003,
     message: '注册失败'
   },
+  registerValidateErrorInfo: {
+    errno: 10004,
+    message: '用户信息格式化校验失败'
+  },
 }
