@@ -3,11 +3,13 @@ const {
   isExist,
   register
 } = require('../../controller/user')
+const { genValidator } = require('../../middleware/validator')
+const validateUser = require('../../validator/user')
 
 router.prefix('/api/users')
 
 // 注册（routes只负责派发路由和获取数据，其他交给controller）
-router.post('/register', async (ctx, next) => {
+router.post('/register', genValidator(validateUser), async (ctx, next) => {
   const { username, password, gender } = ctx.request.body
   ctx.body = await register({
     username,
