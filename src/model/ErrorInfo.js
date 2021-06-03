@@ -15,4 +15,8 @@ module.exports = {
     errno: 10004,
     message: '用户信息格式化校验失败'
   },
+  loginFailedInfo: {
+    errno: 10005,
+    message: '登录失败'
+  },
 }
