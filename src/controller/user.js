@@ -11,8 +11,10 @@ const {
 const {
   registerUsernameExistInfo,
   registerUsernameNotExistInfo,
-  registerFailedInfo
+  registerFailedInfo,
+  loginFailedInfo
 } = require('../model/ErrorInfo')
+const genSessionId = require('../utils/genSessionId')
 
 /**
  * @description 判断用户名是否存在
@@ -46,7 +48,19 @@ async function register({ username, password, gender }) {
   }
 }
 
+async function login(ctx, username, password) {
+  const userInfo = await getUserInfo(username, password)
+  if (!userInfo) { // 登录失败
+    return new ErrorModel(loginFailedInfo)
+  }
+  // 登录成功，随机生成sessionId，记录信息
+  const sessionId = genSessionId() // 生成sessionId
+  ctx.session[sessionId] = userInfo // 将用户数据存入redis
+  return new SuccessModel(userInfo)
+}
+
 module.exports = {
   isExist,
-  register
+  register,
+  login
 }

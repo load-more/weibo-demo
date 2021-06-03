@@ -1,9 +1,5 @@
 const Sequelize = require('sequelize')
-
-const config = {
-  host: 'localhost',
-  dialect: 'mysql'
-}
+const { MYSQL_CONF } = require('../conf/db')
 
 // 线上环境使用连接池
 // config.pool = {
@@ -13,7 +9,12 @@ const config = {
 // }
 
 // 传入数据库名称，用户名，密码，配置
-const seq = new Sequelize('weibo-demo', 'root', 'jiayou', config)
+const seq = new Sequelize(
+  MYSQL_CONF.table,
+  MYSQL_CONF.username,
+  MYSQL_CONF.password,
+  MYSQL_CONF.config
+)
 
 // 测试连接
 seq.authenticate().then(() => {

@@ -5,10 +5,25 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const session = require('koa-generic-session')
+const redisStore = require('koa-redis')
+const { SESSION_SECRET_KEY } = require('../src/conf/secretKeys')
+const { COOKIE_CONF, REDIS_CONF } = require('../src/conf/db')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
 const usersAPIRouter = require('./routes/api/user')
+
+// session & redis
+app.keys = [SESSION_SECRET_KEY]
+app.use(session({
+  // 配置cookie
+  cookie: COOKIE_CONF.cookie,
+  // 配置redis
+  store: redisStore({
+    all: REDIS_CONF.ip
+  })
+}))
 
 // error handler
 onerror(app)
