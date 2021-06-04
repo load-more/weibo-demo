@@ -6,6 +6,7 @@ const {
 } = require('../../controller/user')
 const { genValidator } = require('../../middleware/validator')
 const validateUser = require('../../validator/user')
+const loginCheck = require('../../middleware/loginCheck')
 
 router.prefix('/api/users')
 
@@ -29,6 +30,11 @@ router.post('/isExist', async (ctx, next) => {
 router.post('/login', async (ctx, next) => {
   const { username, password } = ctx.request.body
   ctx.body = await login(ctx, username, password)
+})
+
+// 测试登录验证
+router.get('/test', loginCheck, async (ctx, next) => {
+  ctx.body = 'test success!'
 })
 
 module.exports = router

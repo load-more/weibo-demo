@@ -19,4 +19,8 @@ module.exports = {
     errno: 10005,
     message: '登录失败'
   },
+  notLoginInfo: {
+    errno: 10006,
+    message: '未登录'
+  },
 }
