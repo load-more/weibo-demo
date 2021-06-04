@@ -56,6 +56,7 @@ async function login(ctx, username, password) {
   // 登录成功，随机生成sessionId，记录信息
   const sessionId = genSessionId() // 生成sessionId
   ctx.session[sessionId] = userInfo // 将用户数据存入redis
+  ctx.cookies.set('sessionId', sessionId) // 将sessionId加入到cookie中返回给客户端
   return new SuccessModel(userInfo)
 }
 
