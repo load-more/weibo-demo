@@ -23,4 +23,8 @@ module.exports = {
     errno: 10006,
     message: '未登录'
   },
+  removeUserErrorInfo: {
+    errno: 10007,
+    message: '删除用户失败'
+  },
 }

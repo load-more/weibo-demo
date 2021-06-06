@@ -48,6 +48,28 @@ if (env === 'development') {
       maxAge: 24 * 60 * 60 * 1000 // 一天
     }
   }
+} else if (env === 'test') {
+  MYSQL_CONF = {
+    table: 'weibo-demo',
+    username: 'root',
+    password: 'jiayou',
+    config: {
+      host: 'localhost',
+      dialect: 'mysql'
+    }
+  }
+
+  REDIS_CONF = {
+    ip: '127.0.0.1:6379'
+  }
+
+  COOKIE_CONF = {
+    cookie: {
+      path: '/',
+      httpOnly: 'true',
+      maxAge: 24 * 60 * 60 * 1000 // 一天
+    }
+  }
 }
 
 module.exports = {
