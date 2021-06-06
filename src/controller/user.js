@@ -6,15 +6,18 @@
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const {
   getUserInfo,
-  createUser
+  createUser,
+  deleteUser
 } = require('../service/user')
 const {
   registerUsernameExistInfo,
   registerUsernameNotExistInfo,
   registerFailedInfo,
-  loginFailedInfo
+  loginFailedInfo,
+  removeUserErrorInfo
 } = require('../model/ErrorInfo')
 const genSessionId = require('../utils/genSessionId')
+const encrypt = require('../utils/crypto')
 
 /**
  * @description 判断用户名是否存在
@@ -49,7 +52,7 @@ async function register({ username, password, gender }) {
 }
 
 async function login(ctx, username, password) {
-  const userInfo = await getUserInfo(username, password)
+  const userInfo = await getUserInfo(username, encrypt(password))
   if (!userInfo) { // 登录失败
     return new ErrorModel(loginFailedInfo)
   }
@@ -60,8 +63,17 @@ async function login(ctx, username, password) {
   return new SuccessModel(userInfo)
 }
 
+async function remove (username) {
+  const rst = await deleteUser(username)
+  if (rst) { // 删除成功
+    return new SuccessModel()
+  }
+  return new ErrorModel(removeUserErrorInfo)
+}
+
 module.exports = {
   isExist,
   register,
-  login
+  login,
+  remove
 }
