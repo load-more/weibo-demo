@@ -27,4 +27,8 @@ module.exports = {
     errno: 10007,
     message: '删除用户失败'
   },
+  fileSizeErrorInfo: {
+    errno: 10008,
+    message: '文件尺寸过大'
+  }
 }

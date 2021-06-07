@@ -9,10 +9,12 @@ const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 const { SESSION_SECRET_KEY } = require('../src/conf/secretKeys')
 const { COOKIE_CONF, REDIS_CONF } = require('../src/conf/db')
+const path = require('path')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
 const usersAPIRouter = require('./routes/api/user')
+const utilsAPIRouter = require('./routes/api/utils')
 
 // session & redis
 app.keys = [SESSION_SECRET_KEY]
@@ -34,7 +36,8 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(require('koa-static')(__dirname + '/public')) // url访问public目录
+app.use(require('koa-static')(path.resolve(__dirname, '../uploadFiles')))
 
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
@@ -52,6 +55,7 @@ app.use(async (ctx, next) => {
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(usersAPIRouter.routes(), usersAPIRouter.allowedMethods())
+app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

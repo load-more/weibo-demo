@@ -1,1 +1,4 @@
+# 忽略下载的模块
 node_modules/
+# 忽略上传的文件
+uploadFiles/
