@@ -56,12 +56,13 @@ async function changeInfoService(username, newInfo) {
   return rst[0] > 0
 }
 
-async function changePswService(username, password) {
+async function changePswService(username, password, newPassword) {
   const rst = await User.update({
-    password,
+    password: newPassword,
   }, {
     where: {
-      username
+      username,
+      password
     }
   })
   return rst[0] > 0

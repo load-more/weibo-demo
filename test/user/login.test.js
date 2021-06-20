@@ -66,12 +66,50 @@ test('登录，应该成功', async () => {
 
   // 获取 cookie
   COOKIE = res.headers['set-cookie'].join(';')
+  console.log("============", COOKIE);
+})
+
+// 修改基本信息
+test('修改基本信息应该成功', async () => {
+  const res = await server
+    .patch('/api/users/changeInfo')
+    .send({
+      nickname: '测试昵称',
+      gender: 0,
+      avatar: '/test.png',
+      city: '测试城市',
+    })
+    .set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
+})
+
+// 修改密码
+test('修改密码应该成功', async () => {
+  const res = await server
+    .patch('/api/users/changePsw')
+    .send({
+      password,
+      newPassword: 'new_password'
+    })
+    .set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
+})
+
+// 退出登录
+test('退出登录应该成功', async () => {
+  const res = await server
+    .post('/api/users/logout')
+    .send({})
+    .set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
 })
 
 // 删除
 test('删除用户，应该成功', async () => {
   const res = await server
     .post('/api/users/delete')
-    .set('cookie', COOKIE)
+    .send({
+      username
+    })
   expect(res.body.errno).toBe(0)
 })

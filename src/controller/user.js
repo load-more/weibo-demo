@@ -75,7 +75,9 @@ async function remove(username) {
   return new ErrorModel(removeUserErrorInfo)
 }
 
-async function changeInfo(username, newInfo) {
+async function changeInfo(ctx, newInfo) {
+  const sessionId = ctx.cookies.get('sessionId')
+  const username = ctx.session[sessionId].username
   const rst = await changeInfoService(username, newInfo)
   if (rst) {
     return new SuccessModel()
@@ -83,17 +85,18 @@ async function changeInfo(username, newInfo) {
   return new ErrorModel(changeInfoErrorInfo)
 }
 
-async function changePsw(username, password) {
-  const rst = await changePswService(username, password)
-  if (rst) {
+async function changePsw(ctx, password, newPassword) {
+  const sessionId = ctx.cookies.get('sessionId')
+  const username = ctx.session[sessionId].username
+  const rst = await changePswService(username, password, newPassword)
+  if (rst && newPassword) {
     return new SuccessModel()
   }
   return new ErrorModel(changePswErrorInfo)
 }
 
 async function logout(ctx) {
-  const sessionId = ctx.cookies.get('sessionId')
-  ctx.session[sessionId] = ''
+  ctx.cookies.set('sessionId', '')
   return new SuccessModel()
 }
 
