@@ -7,14 +7,18 @@ const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const {
   getUserInfo,
   createUser,
-  deleteUser
+  deleteUser,
+  changeInfoService,
+  changePswService
 } = require('../service/user')
 const {
   registerUsernameExistInfo,
   registerUsernameNotExistInfo,
   registerFailedInfo,
   loginFailedInfo,
-  removeUserErrorInfo
+  removeUserErrorInfo,
+  changeInfoErrorInfo,
+  changePswErrorInfo
 } = require('../model/ErrorInfo')
 const genSessionId = require('../utils/genSessionId')
 const encrypt = require('../utils/crypto')
@@ -63,7 +67,7 @@ async function login(ctx, username, password) {
   return new SuccessModel(userInfo)
 }
 
-async function remove (username) {
+async function remove(username) {
   const rst = await deleteUser(username)
   if (rst) { // 删除成功
     return new SuccessModel()
@@ -71,9 +75,34 @@ async function remove (username) {
   return new ErrorModel(removeUserErrorInfo)
 }
 
+async function changeInfo(username, newInfo) {
+  const rst = await changeInfoService(username, newInfo)
+  if (rst) {
+    return new SuccessModel()
+  }
+  return new ErrorModel(changeInfoErrorInfo)
+}
+
+async function changePsw(username, password) {
+  const rst = await changePswService(username, password)
+  if (rst) {
+    return new SuccessModel()
+  }
+  return new ErrorModel(changePswErrorInfo)
+}
+
+async function logout(ctx) {
+  const sessionId = ctx.cookies.get('sessionId')
+  ctx.session[sessionId] = ''
+  return new SuccessModel()
+}
+
 module.exports = {
   isExist,
   register,
   login,
-  remove
+  remove,
+  changeInfo,
+  changePsw,
+  logout
 }

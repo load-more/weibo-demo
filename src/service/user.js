@@ -47,8 +47,30 @@ async function deleteUser(username) {
   return rst > 0
 }
 
+async function changeInfoService(username, newInfo) {
+  const rst = await User.update(newInfo, {
+    where: {
+      username: username
+    }
+  })
+  return rst[0] > 0
+}
+
+async function changePswService(username, password) {
+  const rst = await User.update({
+    password,
+  }, {
+    where: {
+      username
+    }
+  })
+  return rst[0] > 0
+}
+
 module.exports = {
   getUserInfo,
   createUser,
-  deleteUser
+  deleteUser,
+  changeInfoService,
+  changePswService
 }
