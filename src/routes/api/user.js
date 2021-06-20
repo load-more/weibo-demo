@@ -40,16 +40,17 @@ router.post('/login', async (ctx, next) => {
 
 // 修改用户信息
 router.patch('/changeInfo', loginCheck, async (ctx, next) => {
-  const { username, nickname, gender, avatar, city } = ctx.request.body
-  const newInfo = { username, nickname, gender, avatar, city }
-  ctx.body = await changeInfo(username, newInfo)
+  const { nickname, gender, avatar, city } = ctx.request.body
+  const newInfo = { nickname, gender, avatar, city }
+  ctx.body = await changeInfo(ctx, newInfo)
 })
 
 // 修改密码
 router.patch('/changePsw', loginCheck, async (ctx, next) => {
-  let { username, password } = ctx.request.body
+  let { password, newPassword } = ctx.request.body
   password = encrypt(password)
-  ctx.body = await changePsw(username, password)
+  newPassword = encrypt(newPassword)
+  ctx.body = await changePsw(ctx, password, newPassword)
 })
 
 // 退出登录
@@ -59,9 +60,8 @@ router.post('/logout', loginCheck, async (ctx, next) => {
 
 // 删除用户（用于单元测试删除测试产生的数据）
 router.post('/delete', async (ctx, next) => {
+  const { username } = ctx.request.body
   if (isTest) { // 如果是测试环境，则删除用户
-    const sessionId = ctx.cookies.get('sessionId') // 获取cookie中的sessionId
-    const { username } = ctx.session[sessionId] // 从redis中找到sessionId对应的值
     ctx.body = await remove(username)
   }
 })
