@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize')
-const { MYSQL_CONF } = require('../conf/db')
 
 // 线上环境使用连接池
 // config.pool = {
@@ -7,6 +6,22 @@ const { MYSQL_CONF } = require('../conf/db')
 //   min: 0, // 连接池中最小的连接数量
 //   idle: 10000 // 如果一个连接池 10s 之内没有使用则释放
 // }
+
+const MYSQL_CONF = {
+  table: 'weibo-demo',
+  username: 'root',
+  password: 'jiayou',
+  config: {
+    host: 'localhost',
+    dialect: 'mysql',
+    timezone: '+08:00',
+    // 将时间格式化
+    dialectOptions: {
+      dateStrings: true,
+      typeCast: true
+    }
+  }
+}
 
 // 传入数据库名称，用户名，密码，配置
 const seq = new Sequelize(

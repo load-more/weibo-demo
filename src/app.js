@@ -15,6 +15,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const usersAPIRouter = require('./routes/api/user')
 const utilsAPIRouter = require('./routes/api/utils')
+const blogAPIRouter = require('./routes/api/blog')
 
 // session & redis
 app.keys = [SESSION_SECRET_KEY]
@@ -56,6 +57,7 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(usersAPIRouter.routes(), usersAPIRouter.allowedMethods())
 app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods())
+app.use(blogAPIRouter.routes(), blogAPIRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
