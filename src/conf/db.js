@@ -11,7 +11,13 @@ if (env === 'development') {
     password: 'jiayou',
     config: {
       host: 'localhost',
-      dialect: 'mysql'
+      dialect: 'mysql',
+      timezone: '+08:00',
+      // 将时间格式化
+      dialectOptions: {
+        dateStrings: true,
+        typeCast: true
+      }
     }
   }
 

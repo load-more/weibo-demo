@@ -39,4 +39,8 @@ module.exports = {
     errno: 10010,
     message: '修改密码失败'
   },
+  createBlogErrorInfo: {
+    errno: 10011,
+    message: '创建博客失败'
+  },
 }
