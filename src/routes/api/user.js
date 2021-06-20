@@ -3,12 +3,16 @@ const {
   isExist,
   register,
   login,
-  remove
+  remove,
+  changeInfo,
+  changePsw,
+  logout
 } = require('../../controller/user')
 const { genValidator } = require('../../middleware/validator')
 const validateUser = require('../../validator/user')
 const loginCheck = require('../../middleware/loginCheck')
 const { isTest } = require('../../utils/env')
+const encrypt = require('../../utils/crypto')
 
 router.prefix('/api/users')
 
@@ -32,6 +36,25 @@ router.post('/isExist', async (ctx, next) => {
 router.post('/login', async (ctx, next) => {
   const { username, password } = ctx.request.body
   ctx.body = await login(ctx, username, password)
+})
+
+// 修改用户信息
+router.patch('/changeInfo', loginCheck, async (ctx, next) => {
+  const { username, nickname, gender, avatar, city } = ctx.request.body
+  const newInfo = { username, nickname, gender, avatar, city }
+  ctx.body = await changeInfo(username, newInfo)
+})
+
+// 修改密码
+router.patch('/changePsw', loginCheck, async (ctx, next) => {
+  let { username, password } = ctx.request.body
+  password = encrypt(password)
+  ctx.body = await changePsw(username, password)
+})
+
+// 退出登录
+router.post('/logout', loginCheck, async (ctx, next) => {
+  ctx.body = await logout(ctx)
 })
 
 // 删除用户（用于单元测试删除测试产生的数据）

@@ -30,5 +30,13 @@ module.exports = {
   fileSizeErrorInfo: {
     errno: 10008,
     message: '文件尺寸过大'
-  }
+  },
+  changeInfoErrorInfo: {
+    errno: 10009,
+    message: '修改用户信息失败'
+  },
+  changePswErrorInfo: {
+    errno: 10010,
+    message: '修改密码失败'
+  },
 }
