@@ -43,4 +43,12 @@ module.exports = {
     errno: 10011,
     message: '创建博客失败'
   },
+  getHomeBlogListErrorInfo: {
+    errno: 10012,
+    message: '获取本人博客失败'
+  },
+  getProfileBlogListErrorInfo: {
+    errno: 10013,
+    message: '获取他人博客失败'
+  },
 }
