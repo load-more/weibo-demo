@@ -51,4 +51,8 @@ module.exports = {
     errno: 10013,
     message: '获取他人博客失败'
   },
+  getSquareBlogListErrorInfo: {
+    errno: 10014,
+    message: '获取广场页博客失败'
+  },
 }

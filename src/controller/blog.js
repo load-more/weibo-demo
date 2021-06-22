@@ -7,7 +7,9 @@ const {
   createBlogErrorInfo,
   getHomeBlogListErrorInfo,
   getProfileBlogListErrorInfo,
+  getSquareBlogListErrorInfo,
 } = require('../model/ErrorInfo')
+const { getSquareBlogListCache } = require('../cache/blog')
 const xss = require('xss')
 const router = require('../routes/api/blog')
 
@@ -44,8 +46,18 @@ async function getProfileBlogList(username, pageIndex) {
   return new ErrorModel(getProfileBlogListErrorInfo)
 }
 
+// 获取广场页博客
+async function getSquareBlogList({ pageIndex, pageSize = 10 }) {
+  const rst = await getSquareBlogListCache(pageIndex, pageSize)
+  if (rst) {
+    return new SuccessModel(rst)
+  }
+  return new ErrorModel(getSquareBlogListErrorInfo)
+}
+
 module.exports = {
   createBlog,
   getHomeBlogList,
   getProfileBlogList,
+  getSquareBlogList,
 }
