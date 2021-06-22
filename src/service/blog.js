@@ -18,6 +18,10 @@ async function createBlogService(username, content, image) {
 async function getBlogListByUserService(
   { username, pageIndex = 0, pageSize = 10 }
 ) {
+  const whereOpt = {}
+  if (username) { // 当未传入username时，查询所有博客
+    whereOpt.username = username
+  }
   const rst = await Blog.findAndCountAll({
     limit: pageSize, // 每页多少条
     offset: pageSize * parseInt(pageIndex), // 跳过多少条
@@ -28,9 +32,7 @@ async function getBlogListByUserService(
       {
         model: User,
         attributes: ['username', 'nickname', 'avatar'],
-        where: {
-          username
-        }
+        where: whereOpt
       }
     ]
   })

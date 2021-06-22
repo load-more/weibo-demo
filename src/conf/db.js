@@ -66,7 +66,9 @@ if (env === 'development') {
   }
 
   REDIS_CONF = {
-    ip: '127.0.0.1:6379'
+    // ip: '127.0.0.1:6379'
+    port: 6379,
+    host: '127.0.0.1'
   }
 
   COOKIE_CONF = {
