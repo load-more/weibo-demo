@@ -3,7 +3,7 @@
  * @author load_more
  */
 
-const User = require('../db/model/user')
+const { User } = require('../db/model/index')
 const { formatUserInfo } = require('./_format')
 const encrypt = require('../utils/crypto')
 

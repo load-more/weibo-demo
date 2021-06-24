@@ -55,4 +55,20 @@ module.exports = {
     errno: 10014,
     message: '获取广场页博客失败'
   },
+  followErrorInfo: {
+    errno: 10015,
+    message: '关注用户失败'
+  },
+  getFansErrorInfo: {
+    errno: 10016,
+    message: '获取粉丝失败'
+  },
+  unfollowErrorInfo: {
+    errno: 10017,
+    message: '取消关注失败'
+  },
+  getFollowersErrorInfo: {
+    errno: 10018,
+    message: '获取关注用户失败'
+  },
 }
