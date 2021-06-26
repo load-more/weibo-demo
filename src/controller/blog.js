@@ -1,6 +1,7 @@
 const {
   createBlogService,
   getBlogListByUserService,
+  getHomeAllBlogService,
 } = require('../service/blog')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const {
@@ -8,6 +9,7 @@ const {
   getHomeBlogListErrorInfo,
   getProfileBlogListErrorInfo,
   getSquareBlogListErrorInfo,
+  getHomeAllBlogErrorInfo
 } = require('../model/ErrorInfo')
 const { getSquareBlogListCache } = require('../cache/blog')
 const xss = require('xss')
@@ -57,9 +59,24 @@ async function getSquareBlogList({ pageIndex, pageSize = 10 }) {
   return new ErrorModel(getSquareBlogListErrorInfo)
 }
 
+async function getHomeAllBlog({ ctx, pageIndex, pageSize = 10 }) {
+  const sessionId = ctx.cookies.get('sessionId')
+  const userId = ctx.session[sessionId].id
+  const rst = await getHomeAllBlogService({
+    userId,
+    pageIndex,
+    pageSize
+  })
+  if (rst) {
+    return new SuccessModel(rst)
+  }
+  return new ErrorModel(getHomeAllBlogErrorInfo)
+}
+
 module.exports = {
   createBlog,
   getHomeBlogList,
   getProfileBlogList,
   getSquareBlogList,
+  getHomeAllBlog,
 }

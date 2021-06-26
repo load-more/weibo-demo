@@ -4,7 +4,7 @@ const UserRelation = require('./userRelation')
 
 // 创建外键，不传入参数则会自动向Blog中添加userId作为外键
 Blog.belongsTo(User, { // 用于Blog中查询User的信息
-  foreignKey: 'userid',
+  foreignKey: 'userid', // Blog.userid -> User.id
 })
 User.hasMany(Blog, { // 用于User中查询Blog的信息
   foreignKey: 'userid',
@@ -17,6 +17,12 @@ UserRelation.belongsTo(User, {
 // 用于从User中查询UserRelation的信息
 User.hasMany(UserRelation, {
   foreignKey: 'userid'
+})
+
+Blog.belongsTo(UserRelation, {
+  foreignKey: 'userid',
+  // Blog.userid -> UserRelation.followerid, 不设的话默认指向id
+  targetKey: 'followerid'
 })
 
 module.exports = {

@@ -3,7 +3,8 @@ const {
   createBlog,
   getHomeBlogList,
   getProfileBlogList,
-  getSquareBlogList
+  getSquareBlogList,
+  getHomeAllBlog,
 } = require('../../controller/blog')
 const loginCheck = require('../../middleware/loginCheck')
 const { genValidator } = require('../../middleware/validator')
@@ -34,6 +35,12 @@ router.get('/profile/:username/:pageIndex', async (ctx, next) => {
 router.get('/square/:pageIndex', async (ctx, next) => {
   const { pageIndex } = ctx.params
   ctx.body = await getSquareBlogList({ pageIndex })
+})
+
+// 获取首页的所有博客（自己的博客和关注者的博客）
+router.get('/home/all/:pageIndex', loginCheck, async (ctx, next) => {
+  const { pageIndex } = ctx.params
+  ctx.body = await getHomeAllBlog({ ctx, pageIndex })
 })
 
 module.exports = router

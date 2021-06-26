@@ -71,4 +71,8 @@ module.exports = {
     errno: 10018,
     message: '获取关注用户失败'
   },
+  getHomeAllBlogErrorInfo: {
+    errno: 10019,
+    message: '获取首页所有博客失败'
+  },
 }
