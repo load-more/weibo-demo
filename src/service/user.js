@@ -6,6 +6,7 @@
 const { User } = require('../db/model/index')
 const { formatUserInfo } = require('./_format')
 const encrypt = require('../utils/crypto')
+const { followService } = require('./userRelation')
 
 /**
  * @param {string} username 用户名
@@ -34,6 +35,8 @@ async function createUser({ username, password, gender, nickname }) {
     nickname: nickname ? nickname : username,
     gender
   })
+  // 自己关注自己
+  await followService(rst.id, rst.id)
   return rst.dataValues
 }
 

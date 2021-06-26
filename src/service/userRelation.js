@@ -2,6 +2,7 @@ const {
   UserRelation,
   User
 } = require('../db/model/index')
+const Sequelize = require('sequelize')
 
 async function followService(userId, followerId) {
   const rst = await UserRelation.create({
@@ -31,7 +32,10 @@ async function getFansService(userId) {
       {
         model: UserRelation,
         where: {
-          followerid: userId
+          followerid: userId,
+          userid: { // 排除自己关注自己的情况(userid !== userId)
+            [Sequelize.Op.ne]: userId // Operation.not_equal
+          }
         }
       }
     ]
@@ -55,7 +59,10 @@ async function getFollowersService(userId) {
       }
     ],
     where: {
-      userid: userId
+      userid: userId,
+      followerid: { // 排除自己关注自己的情况(followerid !== userId)
+        [Sequelize.Op.ne]: userId // Operation.not_equal
+      }
     }
   })
   const res = {}
