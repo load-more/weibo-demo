@@ -64,8 +64,6 @@ router.post('/logout', loginCheck, async (ctx, next) => {
   ctx.body = await logout(ctx)
 })
 
-<<<<<<< HEAD
-=======
 // 关注用户
 router.post('/follow', loginCheck, async (ctx, next) => {
   const { followerId } = ctx.request.body
@@ -90,7 +88,6 @@ router.get('/:userId/followers', loginCheck, async (ctx, next) => {
   ctx.body = await getFollowers(userId)
 })
 
->>>>>>> feat-follow
 // 删除用户（用于单元测试删除测试产生的数据）
 router.post('/delete', async (ctx, next) => {
   const { username } = ctx.request.body
