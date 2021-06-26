@@ -13,6 +13,12 @@ const validateUser = require('../../validator/user')
 const loginCheck = require('../../middleware/loginCheck')
 const { isTest } = require('../../utils/env')
 const encrypt = require('../../utils/crypto')
+const {
+  follow,
+  unfollow,
+  getFans,
+  getFollowers
+} = require('../../controller/userRelation')
 
 router.prefix('/api/users')
 
@@ -58,6 +64,33 @@ router.post('/logout', loginCheck, async (ctx, next) => {
   ctx.body = await logout(ctx)
 })
 
+<<<<<<< HEAD
+=======
+// 关注用户
+router.post('/follow', loginCheck, async (ctx, next) => {
+  const { followerId } = ctx.request.body
+  ctx.body = await follow(ctx, followerId)
+})
+
+// 取消关注
+router.post('/unfollow', loginCheck, async (ctx, next) => {
+  const { unfollowerId } = ctx.request.body
+  ctx.body = await unfollow(ctx, unfollowerId)
+})
+
+// 获取用户粉丝
+router.get('/:userId/fans', loginCheck, async (ctx, next) => {
+  const { userId } = ctx.params
+  ctx.body = await getFans(userId)
+})
+
+// 获取关注用户
+router.get('/:userId/followers', loginCheck, async (ctx, next) => {
+  const { userId } = ctx.params
+  ctx.body = await getFollowers(userId)
+})
+
+>>>>>>> feat-follow
 // 删除用户（用于单元测试删除测试产生的数据）
 router.post('/delete', async (ctx, next) => {
   const { username } = ctx.request.body

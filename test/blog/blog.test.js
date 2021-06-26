@@ -1,7 +1,7 @@
 const server = require('../server')
 
 // 测试用户的cookie，需要更新
-const COOKIE = 'koa.sid=DP6yV5lZxnlfdYHMbqSMQEQiKgxzjoIQ; koa.sid.sig=Gie13wYL7WOOz-1b3HJ1hgx6WY8; sessionId=_1624364980914'
+const { Z_COOKIE } = require('../testUserInfo')
 
 // 创建博客
 test('创建博客，应该成功', async () => {
@@ -16,7 +16,7 @@ test('创建博客，应该成功', async () => {
       content,
       image
     })
-    .set('cookie', COOKIE)
+    .set('cookie', Z_COOKIE)
   expect(res.body.errno).toBe(0)
   expect(res.body.data.content).toBe(content)
   expect(res.body.data.image).toBe(image)
@@ -27,7 +27,7 @@ test('获取自己的博客，应该成功', async () => {
   // 开始测试
   const res = await server
     .get('/api/blogs/home/0')
-    .set('cookie', COOKIE)
+    .set('cookie', Z_COOKIE)
   expect(res.body.errno).toBe(0)
 
   const data = res.body.data
@@ -43,7 +43,7 @@ test('获取他人的博客，应该成功', async () => {
   // 开始测试
   const res = await server
     .get('/api/blogs/profile/zhangsan/0')
-    .set('cookie', COOKIE)
+    .set('cookie', Z_COOKIE)
   expect(res.body.errno).toBe(0)
 
   const data = res.body.data

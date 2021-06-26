@@ -18,11 +18,13 @@ async function createBlog(ctx, content, image) {
   const sessionId = ctx.cookies.get('sessionId')
   const username = ctx.session[sessionId].username
   content = xss(content)
-  const rst = await createBlogService(username, content, image)
-  if (rst) {
+  try {
+    const rst = await createBlogService(username, content, image)
     return new SuccessModel(rst)
+  } catch(ex) {
+    console.error(ex)
+    return new ErrorModel(createBlogErrorInfo)
   }
-  return new ErrorModel(createBlogErrorInfo)
 }
 
 // 获取自己的博客
