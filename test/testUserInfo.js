@@ -12,10 +12,10 @@ module.exports = {
   // 张三的信息
   Z_ID: 1,
   Z_USER_NAME: 'zhangsan',
-  Z_COOKIE: 'koa.sid=JYXdFExSaMFGzVqoozmtxG_TTIZPH6Av; koa.sid.sig=0zpqIiPTVHhm5c-Crlz4awx2IWI; sessionId=_1624677265305',
+  Z_COOKIE: 'koa.sid=JYXdFExSaMFGzVqoozmtxG_TTIZPH6Av; koa.sid.sig=0zpqIiPTVHhm5c-Crlz4awx2IWI; sessionId=_1624695066321',
 
   // 李四的信息
   L_ID: 2,
   L_USER_NAME: 'lisi',
-  L_COOKIE: 'koa.sid=JYXdFExSaMFGzVqoozmtxG_TTIZPH6Av; koa.sid.sig=0zpqIiPTVHhm5c-Crlz4awx2IWI; sessionId=_1624677184168'
+  L_COOKIE: 'koa.sid=JYXdFExSaMFGzVqoozmtxG_TTIZPH6Av; koa.sid.sig=0zpqIiPTVHhm5c-Crlz4awx2IWI; sessionId=_1624695133953'
 }

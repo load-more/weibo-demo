@@ -68,3 +68,18 @@ test('获取广场页博客，应该成功', async () => {
   expect(data).toHaveProperty('pageIndex')
   expect(data).toHaveProperty('count')
 })
+
+// 获取首页所有博客
+test('获取首页所有博客，应该成功', async () => {
+  const res = await server
+    .get('/api/blogs/home/all/0')
+    .set('cookie', Z_COOKIE)
+  expect(res.body.errno).toBe(0)
+
+  const data = res.body.data
+  expect(data).toHaveProperty('isEmpty')
+  expect(data).toHaveProperty('blogList')
+  expect(data).toHaveProperty('pageSize')
+  expect(data).toHaveProperty('pageIndex')
+  expect(data).toHaveProperty('count')
+})
