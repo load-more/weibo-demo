@@ -1,0 +1,2 @@
++0800-06-29 00:23:22: Executing (default): SELECT 1+1 AS result
++0800-06-29 00:23:22: mysql连接成功！
