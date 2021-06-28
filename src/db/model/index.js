@@ -1,6 +1,7 @@
 const User = require('./user')
 const Blog = require('./blog')
 const UserRelation = require('./userRelation')
+const AtRelation = require('./atRelation')
 
 // 创建外键，不传入参数则会自动向Blog中添加userId作为外键
 Blog.belongsTo(User, { // 用于Blog中查询User的信息
@@ -25,8 +26,13 @@ Blog.belongsTo(UserRelation, {
   targetKey: 'followerid'
 })
 
+Blog.hasMany(AtRelation, {
+  foreignKey: 'blogid',
+})
+
 module.exports = {
   User,
   Blog,
-  UserRelation
+  UserRelation,
+  AtRelation
 }

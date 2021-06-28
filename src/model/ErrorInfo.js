@@ -75,4 +75,8 @@ module.exports = {
     errno: 10019,
     message: '获取首页所有博客失败'
   },
+  atUserErrorInfo: {
+    errno: 10020,
+    message: 'at用户失败'
+  },
 }

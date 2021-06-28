@@ -6,6 +6,7 @@ const {
   getSquareBlogList,
   getHomeAllBlog,
 } = require('../../controller/blog')
+const { atUser } = require('../../controller/atRelation')
 const loginCheck = require('../../middleware/loginCheck')
 const { genValidator } = require('../../middleware/validator')
 const validateBlog = require('../../validator/blog')
@@ -41,6 +42,12 @@ router.get('/square/:pageIndex', async (ctx, next) => {
 router.get('/home/all/:pageIndex', loginCheck, async (ctx, next) => {
   const { pageIndex } = ctx.params
   ctx.body = await getHomeAllBlog({ ctx, pageIndex })
+})
+
+// 在博客中at某个关注用户
+router.post('/at', loginCheck, async (ctx, next) => {
+  const { userId, blogId } = ctx.request.body
+  ctx.body = await atUser(userId, blogId)
 })
 
 module.exports = router
