@@ -19,6 +19,7 @@ const {
   getFans,
   getFollowers
 } = require('../../controller/userRelation')
+const { getAtMeNum } = require('../../controller/atRelation')
 
 router.prefix('/api/users')
 
@@ -86,6 +87,11 @@ router.get('/:userId/fans', loginCheck, async (ctx, next) => {
 router.get('/:userId/followers', loginCheck, async (ctx, next) => {
   const { userId } = ctx.params
   ctx.body = await getFollowers(userId)
+})
+
+// 获取At我的数量
+router.get('/atMe', loginCheck, async (ctx, next) => {
+  ctx.body = await getAtMeNum(ctx)
 })
 
 // 删除用户（用于单元测试删除测试产生的数据）

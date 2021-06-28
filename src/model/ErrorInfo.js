@@ -79,4 +79,8 @@ module.exports = {
     errno: 10020,
     message: 'at用户失败'
   },
+  getAtMeNumErrorInfo: {
+    errno: 10021,
+    message: '获取atMe数量失败'
+  },
 }
