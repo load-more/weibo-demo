@@ -21,7 +21,20 @@ async function getAtMeNumService(userId) {
   return res
 }
 
+async function readBlogService(userId, blogId) {
+  const rst = await AtRelation.update({
+    isread: true
+  }, {
+    where: {
+      userid: userId,
+      blogid: blogId
+    }
+  })
+  return rst[0] > 0
+}
+
 module.exports = {
   atUserService,
   getAtMeNumService,
+  readBlogService
 }

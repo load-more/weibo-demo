@@ -1,6 +1,14 @@
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
-const { atUserErrorInfo, getAtMeNumErrorInfo } = require('../model/ErrorInfo')
-const { atUserService, getAtMeNumService } = require('../service/atRelation')
+const {
+  atUserErrorInfo,
+  getAtMeNumErrorInfo,
+  readBlogErrorInfo
+} = require('../model/ErrorInfo')
+const {
+  atUserService,
+  getAtMeNumService,
+  readBlogService
+} = require('../service/atRelation')
 
 async function atUser(userId, blogId) {
   try {
@@ -24,7 +32,16 @@ async function getAtMeNum(ctx) {
   }
 }
 
+async function readBlog(userId, blogId) {
+  const rst = await readBlogService(userId, blogId)
+  if (rst) {
+    return new SuccessModel()
+  }
+  return new ErrorModel(readBlogErrorInfo)
+}
+
 module.exports = {
   atUser,
-  getAtMeNum
+  getAtMeNum,
+  readBlog
 }

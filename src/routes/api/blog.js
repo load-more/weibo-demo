@@ -6,7 +6,7 @@ const {
   getSquareBlogList,
   getHomeAllBlog,
 } = require('../../controller/blog')
-const { atUser } = require('../../controller/atRelation')
+const { atUser, readBlog } = require('../../controller/atRelation')
 const loginCheck = require('../../middleware/loginCheck')
 const { genValidator } = require('../../middleware/validator')
 const validateBlog = require('../../validator/blog')
@@ -48,6 +48,12 @@ router.get('/home/all/:pageIndex', loginCheck, async (ctx, next) => {
 router.post('/at', loginCheck, async (ctx, next) => {
   const { userId, blogId } = ctx.request.body
   ctx.body = await atUser(userId, blogId)
+})
+
+// 将博客标记为已读
+router.patch('/isRead', loginCheck, async (ctx, next) => {
+  const { userId, blogId } = ctx.request.body
+  ctx.body = await readBlog(userId, blogId)
 })
 
 module.exports = router

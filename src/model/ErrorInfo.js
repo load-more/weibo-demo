@@ -83,4 +83,8 @@ module.exports = {
     errno: 10021,
     message: '获取atMe数量失败'
   },
+  readBlogErrorInfo: {
+    errno: 10022,
+    message: '标记为已读失败'
+  },
 }
